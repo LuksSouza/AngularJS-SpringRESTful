@@ -1,11 +1,15 @@
 package com.airplanescompany.flights.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -20,11 +24,12 @@ public class Pilot {
 	private String name;
 
 	@JsonInclude(Include.NON_NULL)
-	private String age;
+	private int age;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToOne(mappedBy = "pilot")
-	private Flight flight;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pilot")
+	@JsonIgnore
+	private List<Flight> flights;
 
 	public Long getId() {
 		return id;
@@ -42,20 +47,20 @@ public class Pilot {
 		this.name = name;
 	}
 
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
-	public Flight getFlying() {
-		return flight;
+	public List<Flight> getFlights() {
+		return flights;
 	}
 
-	public void setFlying(Flight flight) {
-		this.flight = flight;
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
 	}
 
 }

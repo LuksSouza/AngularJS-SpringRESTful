@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.airplanescompany.flights.domain.Airplane;
 import com.airplanescompany.flights.repository.AirplanesRepository;
 import com.airplanescompany.flights.services.exception.AirplaneAlreadyExistsException;
-import com.airplanescompany.flights.services.exception.AirplaneDoesnotExistsException;
+import com.airplanescompany.flights.services.exception.AirplaneDoesNotExistsException;
 
 @Service
 public class AirplaneServices {
@@ -24,7 +24,7 @@ public class AirplaneServices {
 		Airplane airplane = airplanesRepository.findOne(id);
 		
 		if (airplane == null) {
-			throw new AirplaneDoesnotExistsException("The airplane could not be found");
+			throw new AirplaneDoesNotExistsException("The airplane could not be found");
 		}
 		
 		return airplanesRepository.findOne(id);
@@ -41,23 +41,20 @@ public class AirplaneServices {
 	}
 	
 	public void update(Airplane airplane) {
-		Airplane a = airplanesRepository.findOne(airplane.getId());
-		
-		if (a == null) {
-			throw new AirplaneDoesnotExistsException("The airplane could not be found");
-		}
-		
+		checkIfExists(airplane);
 		airplanesRepository.save(airplane);
 	}
 	
 	public void delete(Long id) {
-		Airplane airplane = airplanesRepository.findOne(id);
-		
-		if (airplane == null) {
-			throw new AirplaneDoesnotExistsException("The airplane could not be found");
-		}
-		
+		checkIfExists(id);
 		airplanesRepository.delete(id);
 	}
 
+	private void checkIfExists(Airplane airplane) {
+		findById(airplane.getId());
+	}
+	
+	private void checkIfExists(Long id) {
+		findById(id);
+	}
 }

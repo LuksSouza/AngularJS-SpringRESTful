@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -32,12 +32,12 @@ public class Flight {
 	private String destinationCity;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToOne
+	@OneToMany
 	@JoinColumn(name = "AIRPLANE_ID")
 	private Airplane airplane;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToOne
+	@OneToMany
 	@JoinColumn(name = "PILOT_ID")
 	private Pilot pilot;
 

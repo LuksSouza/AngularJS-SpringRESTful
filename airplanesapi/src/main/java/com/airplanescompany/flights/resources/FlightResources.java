@@ -13,49 +13,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.airplanescompany.flights.domain.Pilot;
-import com.airplanescompany.flights.services.PilotServices;
+import com.airplanescompany.flights.domain.Flight;
+import com.airplanescompany.flights.services.FlightServices;
 
 @RestController
-@RequestMapping("/pilots")
-public class PilotResources {
-	
+@RequestMapping("/flights")
+public class FlightResources {
+
 	@Autowired
-	PilotServices pilotServices;
+	FlightServices flightServices;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Pilot>> listAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(pilotServices.listAll());
+	public ResponseEntity<List<Flight>> listAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(flightServices.listAll());
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Pilot> findById(@PathVariable("id") Long id) {
-		Pilot pilot = pilotServices.findById(id);
+	public ResponseEntity<Flight> findById(@PathVariable("id") Long id) {
+		Flight flight = flightServices.findById(id);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(pilot);
+		return ResponseEntity.status(HttpStatus.OK).body(flight);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Pilot pilot) {
-		Pilot pilotSaved = pilotServices.save(pilot);
+	public ResponseEntity<Void> save(@RequestBody Flight flight) {
+		Flight flightSaved = flightServices.save(flight);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(pilotSaved.getId()).toUri();
+				.buildAndExpand(flightSaved.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();		
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Pilot pilot, @PathVariable("{id}") Long id) {
-		pilot.setId(id);
-		pilotServices.update(pilot);
+	public ResponseEntity<Void> update(@RequestBody Flight flight, @PathVariable("{id}") Long id) {
+		flight.setId(id);
+		flightServices.update(flight);
 				
 		return ResponseEntity.noContent().build();	
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		pilotServices.delete(id);
+		flightServices.delete(id);
 		
 		return ResponseEntity.noContent().build();
 	}

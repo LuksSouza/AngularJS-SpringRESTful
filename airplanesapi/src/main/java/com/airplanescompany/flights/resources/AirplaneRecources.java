@@ -41,7 +41,7 @@ public class AirplaneRecources {
 	public ResponseEntity<Void> save(@RequestBody Airplane airplane) {
 		Airplane airplaneSaved = airplaneServices.save(airplane);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(airplaneSaved.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();		
