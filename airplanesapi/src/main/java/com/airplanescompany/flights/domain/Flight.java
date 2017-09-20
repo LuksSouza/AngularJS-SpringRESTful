@@ -7,12 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
+@Table(name = "TB_FLIGHT")
 public class Flight {
 
 	@Id
@@ -32,13 +34,13 @@ public class Flight {
 	private String destinationCity;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToMany
-	@JoinColumn(name = "AIRPLANE_ID")
+	@ManyToOne
+	@JoinColumn(name = "airplane_id")
 	private Airplane airplane;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToMany
-	@JoinColumn(name = "PILOT_ID")
+	@ManyToOne
+	@JoinColumn(name = "pilot_id")
 	private Pilot pilot;
 
 	public Long getId() {
