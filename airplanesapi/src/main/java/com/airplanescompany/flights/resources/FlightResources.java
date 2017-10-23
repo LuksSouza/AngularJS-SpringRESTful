@@ -28,7 +28,7 @@ public class FlightResources {
 		return ResponseEntity.status(HttpStatus.OK).body(flightServices.listAll());
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Flight> findById(@PathVariable("id") Long id) {
 		Flight flight = flightServices.findById(id);
 		
@@ -45,15 +45,15 @@ public class FlightResources {
 		return ResponseEntity.created(uri).build();		
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Flight flight, @PathVariable("{id}") Long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Flight flight, @PathVariable("id") Long id) {
 		flight.setId(id);
 		flightServices.update(flight);
 				
 		return ResponseEntity.noContent().build();	
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		flightServices.delete(id);
 		

@@ -28,7 +28,7 @@ public class PilotResources {
 		return ResponseEntity.status(HttpStatus.OK).body(pilotServices.listAll());
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Pilot> findById(@PathVariable("id") Long id) {
 		Pilot pilot = pilotServices.findById(id);
 		
@@ -45,15 +45,15 @@ public class PilotResources {
 		return ResponseEntity.created(uri).build();		
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Pilot pilot, @PathVariable("{id}") Long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Pilot pilot, @PathVariable("id") Long id) {
 		pilot.setId(id);
 		pilotServices.update(pilot);
 				
 		return ResponseEntity.noContent().build();	
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		pilotServices.delete(id);
 		

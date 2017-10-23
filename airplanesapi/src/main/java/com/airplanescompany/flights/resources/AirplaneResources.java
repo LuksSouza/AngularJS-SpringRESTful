@@ -19,7 +19,7 @@ import com.airplanescompany.flights.services.AirplaneServices;
 
 @RestController
 @RequestMapping("/airplanes")
-public class AirplaneRecources {
+public class AirplaneResources {
 
 	@Autowired
 	AirplaneServices airplaneServices;
@@ -30,7 +30,7 @@ public class AirplaneRecources {
 		return ResponseEntity.status(HttpStatus.OK).body(airplanes);
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Airplane> findById(@PathVariable("id") Long id) {
 		Airplane airplane = airplaneServices.findById(id);
 		
@@ -47,15 +47,15 @@ public class AirplaneRecources {
 		return ResponseEntity.created(uri).build();		
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Airplane airplane, @PathVariable("{id}") Long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Airplane airplane, @PathVariable("id") Long id) {
 		airplane.setId(id);
 		airplaneServices.update(airplane);
 				
 		return ResponseEntity.noContent().build();	
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		airplaneServices.delete(id);
 		
